@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Useful tools",
+    "description": "Worktree manager and sidebar collapse: create isolated git worktrees from a blank session and merge, delete or auto-clean from the session header; collapse the sidebar feature panel bar in one click."
+  }
+}

@@ -1,0 +1,5 @@
+# dsh-useful-tools bundle patch: one insert over the profile root.
+# Later layers (the user's profile cordis.patch.yml) may address the row by id.
+- insert:
+    - id: dsh-useful-tools
+      name: 'dsh-useful-tools'
