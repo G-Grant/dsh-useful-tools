@@ -128,8 +128,6 @@ export const zh = {
   'manager.renamePlaceholder': '工作区标题',
   'manager.renameNone': '该目录未注册为工作区，无法改标题',
 
-  'panels.hide': '收起功能入口',
-  'panels.show': '展开功能入口',
 
   'error.generic': '操作失败：{message}',
   'error.notRepo': '当前目录不是 git 仓库',
@@ -277,8 +275,6 @@ export const en: Record<WorktreeKey, string> = {
   'manager.renamePlaceholder': 'Workspace title',
   'manager.renameNone': 'This directory is not a registered workspace; it cannot be retitled',
 
-  'panels.hide': 'Collapse feature panel bar',
-  'panels.show': 'Expand feature panel bar',
 
   'error.generic': 'Operation failed: {message}',
   'error.notRepo': 'The current directory is not a git repository',

@@ -1,14 +1,12 @@
 /**
- * dsh-useful-tools browser half. Registers four slot entries:
+ * dsh-useful-tools browser half. Registers three slot entries:
  *
  *  - `conversation.input.dock` — the hero chips (branch / environment) of a
  *    blank session in a repository's main checkout (see WorktreeChips);
  *  - `conversation.session.header.actions` — merge / delete of a managed
  *    worktree session;
  *  - `plugins.bundle.config` — the configuration form plus the worktree
- *    manager list on the Plugins page;
- *  - `sidebar.footer.action` — the toggle that collapses the global feature
- *    panel bar (see SidebarCollapse).
+ *    manager list on the Plugins page.
  *
  * Repo facts and every git action flow through the host half's routes;
  * workspace registration and session navigation go through the framework's
@@ -28,7 +26,6 @@ import type {} from '@deepseek-ai/dsh-client-ui-plugin-manager/client'
 import type {} from '@deepseek-ai/dsh-client-ui-workspace/client'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-session/client'
-import type {} from '@deepseek-ai/dsh-client-ui-sidebar/client'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 import { requestRemove } from './api.ts'
 import { CardForm, type SectionValue } from './card-form.ts'
@@ -39,14 +36,13 @@ import { HeaderActions } from './HeaderActions.tsx'
 import { en, zh, type WorktreeKey } from './locales.ts'
 import type { ManagerFace } from './ManagerList.tsx'
 import type { ChipsInjected, HeaderInjected, NamingMode, WorktreeOps } from './slots.ts'
-import { SidebarCollapse } from './SidebarCollapse.tsx'
 import { WorktreeChips } from './WorktreeChips.tsx'
 
 export type { WorktreeKey } from './locales.ts'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
-    /** The chips, dialogs, configuration card and sidebar toggle copy. */
+    /** The chips, dialogs and configuration card copy. */
     'useful-tools': WorktreeKey
   }
 }
@@ -213,13 +209,4 @@ export function apply(ctx: ClientContext): void {
     unsubscribeDescribe()
     if (configDisposer !== undefined) configDisposer()
   }, 'useful-tools: plugin config card lifecycle')
-
-  // Sidebar foot divider: collapse / expand the global feature panel bar.
-  ctx.slots.inject('sidebar.footer.action', () => ctx.slots.register({
-    name: 'sidebar.footer.action',
-    id: 'useful-tools-sidebar-collapse',
-    order: 20,
-    locale: NS,
-    label: () => ctx.locale.bind(NS)('panels.hide'),
-  }, SidebarCollapse))
 }

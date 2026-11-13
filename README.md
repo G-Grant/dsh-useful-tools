@@ -2,12 +2,9 @@
 
 [![Release](https://github.com/G-Grant/dsh-useful-tools/actions/workflows/release.yml/badge.svg)](https://github.com/G-Grant/dsh-useful-tools/actions/workflows/release.yml)
 
-DeepSeek Harness 插件集合，一个包提供两项能力：
+DeepSeek Harness 插件（原名「有用的插件集合」，现为 Worktree 管理）：在空白会话里选择本机或 Worktree。Worktree 会在仓库里建一个隔离目录，并在会话头部合并、删除和自动清理。
 
-- **Worktree 管理**：在空白会话里选择本机或 Worktree。Worktree 会在仓库里建一个隔离目录，并在会话头部合并、删除和自动清理。
-- **侧边栏收起**：在侧边栏底部一键收起功能入口栏，为工作区和会话列表腾出高度；折叠状态保存在浏览器本地存储中，重启后保持。
-
-> 本包是两个旧插件的合并版：`dsh-worktree-manager` 与 `dsh-sidebar-collapse`。功能一一对应，升级时请先卸载旧包，见[从旧插件迁移](#从旧插件迁移)。
+> 本包由 `dsh-worktree-manager` 与 `dsh-sidebar-collapse` 合并而来。侧边栏收起功能已随客户端内置的侧边栏折叠退役（0.2.0 起移除），升级时请先卸载旧包，见[从旧插件迁移](#从旧插件迁移)。
 
 ## Worktree 管理
 
@@ -74,15 +71,6 @@ DeepSeek Harness 插件集合，一个包提供两项能力：
 
 冲突时自动回滚，列出冲突文件，可一键「交给 Agent 解决」。squash 之后 git 不认为分支已合并，所以自动清理对分支使用 `-D`。手动删除未合并分支时需要二次确认。
 
-## 侧边栏收起
-
-侧边栏底部、Settings 之上多一个折叠按钮，宽度与侧边栏自身的图标按钮一致（宽栏 28px、图标栏 36px）：
-
-- 点击后隐藏全局功能入口栏（左侧面板列表），侧边栏只留品牌、New Session、工作区列表与页脚。
-- 再次点击恢复。按钮的箭头方向、`aria-label`、`title` 与 `aria-expanded` 随状态切换。
-- 状态写在浏览器 `localStorage`；从旧插件升级的用户会沿用原有偏好值。
-- 该功能与 DSH 自带的整栏收起互不冲突：自带的收起会把侧边栏压成图标栏，本按钮只隐藏功能入口那一栏。
-
 ## 安装
 
 ```sh
@@ -97,15 +85,15 @@ dsh plugin --profile desktop add "link:$(pwd)"
 
 ## 从旧插件迁移
 
-本包已包含旧插件的全部功能，两者不要同时安装（会重复渲染侧边栏折叠按钮与 worktree 入口）。迁移步骤：
+本包已包含旧 worktree 插件的全部功能，不要同时安装。侧边栏收起已移除，请改用客户端自带的侧边栏折叠。迁移步骤：
 
 ```sh
 dsh plugin --profile desktop remove dsh-worktree-manager
-dsh plugin --profile desktop remove dsh-sidebar-collapse
+dsh plugin --profile desktop remove dsh-sidebar-collapse   # 若仍装着
 dsh plugin --profile desktop add "link:/path/to/dsh-useful-tools"   # 或已发布的 tarball
 ```
 
-重启后确认「插件」页只剩一行「有用的插件集合」。折叠偏好与配置项会保留：前者迁移到新的本地存储键，后者沿用原有字段名。
+重启后确认「插件」页只剩一行「有用的插件集合」。配置项会保留：沿用原有字段名与存储位置。
 
 ## 开发
 
@@ -116,9 +104,9 @@ pnpm run build:all   # tsc（host）+ tsdown（client bundle）
 ```
 
 - `src/index.ts`、`src/routes.ts`、`src/git.ts`：宿主侧配置、HTTP 路由与 git 逻辑
-- `src/client/`：浏览器侧（chips、对话框、配置页、管理列表、侧边栏折叠按钮）
+- `src/client/`：浏览器侧（chips、对话框、配置页、管理列表）
 - `src/wire.ts`：两侧共享的路由与类型
-- `docs/decisions/`：设计决策（0001 挂载与创建时机，0002 chip 语义，0003 官方池路径与标题，0004 创建前 fetch 与配置页，0005 中文名称与创建面板，0006 复用已有分支）
+- `docs/decisions/`：设计决策（0001 挂载与创建时机，0002 chip 语义，0003 官方池路径与标题，0004 创建前 fetch 与配置页，0005 中文名称与创建面板，0006 复用已有分支，0007 侧边栏收起退役）
 - `docs/images/`：README 用的界面截图
 
 ## 发布
@@ -132,4 +120,3 @@ pnpm run build:all   # tsc（host）+ tsdown（client bundle）
 - 复用已有分支的 worktree 不参与合并：它的改动本来就在那个分支上，没有需要合回的基线。
 - worktree 目录固定为 `<仓库根>/.agents/worktrees`，不支持自定义。
 - 不提供 commit、push、diff 等通用 git 操作。
-- 侧边栏折叠按钮通过位置插槽渲染，但隐藏目标仍是功能入口栏本身（`nav` 的 `panelList` 类名），该栏改名时需要跟进。

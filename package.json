@@ -1,15 +1,14 @@
 {
   "name": "dsh-useful-tools",
-  "version": "0.1.1",
-  "description": "DeepSeek Harness 插件集合：在空白会话中选择基础分支与运行环境（本机 / Worktree）并管理 git worktree，另可一键收起侧边栏功能入口栏。",
+  "version": "0.2.0",
+  "description": "DeepSeek Harness 插件：在空白会话中选择基础分支与运行环境（本机 / Worktree）并管理 git worktree，支持合并、压缩提交、删除与自动清理。",
   "keywords": [
     "dsh",
     "deepseek",
     "cordis",
     "plugin",
     "git",
-    "worktree",
-    "sidebar"
+    "worktree"
   ],
   "license": "MIT",
   "type": "module",
@@ -46,14 +45,11 @@
     },
     "client": {
       "platform": "web",
-      "immediately": true,
       "inject": [
         "@deepseek-ai/dsh-client-locale",
         "@deepseek-ai/dsh-client-ui-conversation",
-        "@deepseek-ai/dsh-client-ui-layout",
         "@deepseek-ai/dsh-client-ui-settings",
         "@deepseek-ai/dsh-client-ui-plugin-manager",
-        "@deepseek-ai/dsh-client-ui-sidebar",
         "@deepseek-ai/dsh-client-ui-slots",
         "@deepseek-ai/dsh-client-ui-workspace"
       ]
@@ -84,13 +80,11 @@
     "@deepseek-ai/dsh-client-locale": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-store": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-conversation": "0.2.0-rc.1",
-    "@deepseek-ai/dsh-client-ui-layout": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-plugin-manager": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-primitives": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-renderer": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-session": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-settings": "0.2.0-rc.1",
-    "@deepseek-ai/dsh-client-ui-sidebar": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-slots": "0.2.0-rc.1",
     "@deepseek-ai/dsh-client-ui-workspace": "0.2.0-rc.1",
     "@deepseek-ai/dsh-host-webserver": "0.2.0-rc.1",

@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "有用的插件集合",
-    "description": "Worktree 管理与侧边栏收起：在空白会话中创建隔离的 git worktree 并在会话头部合并、删除与自动清理；另可在侧边栏一键收起功能入口栏。"
+    "description": "Worktree 管理：在空白会话中选择基础分支与运行环境，创建隔离的 git worktree，并在会话头部合并、删除与自动清理。"
   }
 }
