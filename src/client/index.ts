@@ -7,7 +7,7 @@
  *    worktree session;
  *  - `plugins.bundle.config` — the configuration form plus the worktree
  *    manager list on the Plugins page;
- *  - `sidebar.footer.action` — the divider that collapses the global feature
+ *  - `sidebar.footer.action` — the toggle that collapses the global feature
  *    panel bar (see SidebarCollapse).
  *
  * Repo facts and every git action flow through the host half's routes;

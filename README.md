@@ -76,11 +76,12 @@ DeepSeek Harness 插件集合，一个包提供两项能力：
 
 ## 侧边栏收起
 
-侧边栏底部、Settings 之上有一条分隔线和一个按钮：
+侧边栏底部、Settings 之上多一个折叠按钮，宽度与侧边栏自身的图标按钮一致（宽栏 28px、图标栏 36px）：
 
 - 点击后隐藏全局功能入口栏（左侧面板列表），侧边栏只留品牌、New Session、工作区列表与页脚。
-- 再次点击恢复。按钮图标、`aria-label` 与悬浮提示随状态切换。
+- 再次点击恢复。按钮的箭头方向、`aria-label`、`title` 与 `aria-expanded` 随状态切换。
 - 状态写在浏览器 `localStorage`；从旧插件升级的用户会沿用原有偏好值。
+- 该功能与 DSH 自带的整栏收起互不冲突：自带的收起会把侧边栏压成图标栏，本按钮只隐藏功能入口那一栏。
 
 ## 安装
 
@@ -96,7 +97,7 @@ dsh plugin --profile desktop add "link:$(pwd)"
 
 ## 从旧插件迁移
 
-本包已包含旧插件的全部功能，两者不要同时安装（会重复渲染侧边栏分隔线与 worktree 入口）。迁移步骤：
+本包已包含旧插件的全部功能，两者不要同时安装（会重复渲染侧边栏折叠按钮与 worktree 入口）。迁移步骤：
 
 ```sh
 dsh plugin --profile desktop remove dsh-worktree-manager
@@ -115,7 +116,7 @@ pnpm run build:all   # tsc（host）+ tsdown（client bundle）
 ```
 
 - `src/index.ts`、`src/routes.ts`、`src/git.ts`：宿主侧配置、HTTP 路由与 git 逻辑
-- `src/client/`：浏览器侧（chips、对话框、配置页、管理列表、侧边栏分隔线）
+- `src/client/`：浏览器侧（chips、对话框、配置页、管理列表、侧边栏折叠按钮）
 - `src/wire.ts`：两侧共享的路由与类型
 - `docs/decisions/`：设计决策（0001 挂载与创建时机，0002 chip 语义，0003 官方池路径与标题，0004 创建前 fetch 与配置页，0005 中文名称与创建面板，0006 复用已有分支）
 - `docs/images/`：README 用的界面截图
@@ -131,4 +132,4 @@ pnpm run build:all   # tsc（host）+ tsdown（client bundle）
 - 复用已有分支的 worktree 不参与合并：它的改动本来就在那个分支上，没有需要合回的基线。
 - worktree 目录固定为 `<仓库根>/.agents/worktrees`，不支持自定义。
 - 不提供 commit、push、diff 等通用 git 操作。
-- 侧边栏分隔线依赖侧边栏自身的 DOM 结构（面板列表与 New Session 按钮的类名），界面改版后可能需要跟进。
+- 侧边栏折叠按钮通过位置插槽渲染，但隐藏目标仍是功能入口栏本身（`nav` 的 `panelList` 类名），该栏改名时需要跟进。
