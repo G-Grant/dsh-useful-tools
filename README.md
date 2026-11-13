@@ -93,7 +93,7 @@ dsh plugin --profile desktop remove dsh-sidebar-collapse   # 若仍装着
 dsh plugin --profile desktop add "link:/path/to/dsh-useful-tools"   # 或已发布的 tarball
 ```
 
-重启后确认「插件」页只剩一行「有用的插件集合」。配置项会保留：沿用原有字段名与存储位置。
+重启后确认「插件」页只剩一行「有用的插件集合」。配置项会保留：沿用原有字段名与存储位置。旧侧边栏折叠留下的两条本地存储键会在插件加载时清除。
 
 ## 开发
 

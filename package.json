@@ -1,6 +1,6 @@
 {
   "name": "dsh-useful-tools",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "DeepSeek Harness 插件：在空白会话中选择基础分支与运行环境（本机 / Worktree）并管理 git worktree，支持合并、压缩提交、删除与自动清理。",
   "keywords": [
     "dsh",

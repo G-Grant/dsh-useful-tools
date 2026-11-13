@@ -47,6 +47,18 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
   }
 }
 
+/** Preferences stored by the sidebar toggle retired in 0.2.0, oldest name last. */
+const RETIRED_STORAGE_KEYS = ['dsh-useful-tools:panels-hidden', 'dsh-sidebar-collapse:panels-hidden']
+
+/** Drops the retired toggle's stored preferences; idempotent, safe to call every load. */
+function dropRetiredStorage(): void {
+  try {
+    for (const key of RETIRED_STORAGE_KEYS) window.localStorage.removeItem(key)
+  } catch {
+    // Storage can be unavailable (disabled or blocked); there is nothing to clean then.
+  }
+}
+
 /** Dictionary namespace owned by this plugin. */
 const NS = 'useful-tools'
 
@@ -61,6 +73,7 @@ const PLUGIN_PACKAGE = 'dsh-useful-tools'
 export const inject = ['slots', 'sessions', 'workspaces', 'uiWorkspace', 'locale', 'configForms']
 
 export function apply(ctx: ClientContext): void {
+  dropRetiredStorage()
   ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'useful-tools: dictionaries')
 
   const settingsForm = ctx.configForms.get<SectionValue>(PLUGIN_ENTRY_ID)
